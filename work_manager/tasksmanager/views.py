@@ -1,5 +1,5 @@
-from django.shortcuts import HttpResponse
+from django.shortcuts import render
 
 
 def page(request):
-    return HttpResponse("Hello World!")
+    return render(request, 'en/public/index.html')
