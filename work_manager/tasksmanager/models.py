@@ -11,6 +11,8 @@ class UserProfile(models.Model):
     years_seniority = models.IntegerField(verbose_name="Seniority", default=0)
     date_created = models.DateField(verbose_name="Date of Birthday", auto_now_add=True)
 
+    def __str__(self):
+        return self.name
 
 class Project(models.Model):
     title = models.CharField(max_length=50, verbose_name="Title")
