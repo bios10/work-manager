@@ -9,7 +9,23 @@
         Hello World Django!
     </h1>
     <article>
-        Hello World
+        <span>{{ my_var }}</span>
+        <span>
+            {% if years < 10 %}
+                You are a children!
+            {% elif years < 18 %}
+                You are a teenager!
+            {% else %}
+                You are an adult!
+            {% endif %}
+        </span>
+        <ul>
+            {% for city in array_city %}
+                <li>
+                    {{ city | upper }}
+                </li>
+            {% endfor %}
+        </ul>
     </article>
 </body>
 </html>
