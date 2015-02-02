@@ -1,31 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Hello World</title>
-</head>
-<body>
-    <h1>
-        Hello World Django!
-    </h1>
-    <article>
-        <span>{{ my_var }}</span>
-        <span>
-            {% if years < 10 %}
-                You are a children!
-            {% elif years < 18 %}
-                You are a teenager!
-            {% else %}
-                You are an adult!
-            {% endif %}
-        </span>
-        <ul>
-            {% for city in array_city %}
-                <li>
-                    {{ city | upper }}
-                </li>
-            {% endfor %}
-        </ul>
-    </article>
-</body>
-</html>
+{% extends "en/public/base.html" %}
+{% block title %}
+    Hello World!
+{% endblock %}
+{% block h1 %}
+    {{ block.super }} Hello World Django
+{% endblock %}
+{% block article %}
+    Hello World!
+{% endblock %}

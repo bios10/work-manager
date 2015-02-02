@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 
-def page(request):
+def index(request):
     my_variable = "Hello world!"
     years_old = 15
     array_city_capitale = ["Paris", "London", "Washington"]
@@ -10,3 +10,6 @@ def page(request):
         "years": years_old,
         "array_city": array_city_capitale
     })
+
+def connection(request):
+    return render(request, 'en/public/connection.html')

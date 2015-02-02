@@ -6,7 +6,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'work_manager.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^$', 'tasksmanager.views.page'),
-    url(r'^index$', 'tasksmanager.views.page'),
+    url(r'^$', 'tasksmanager.views.index', name="public_index"),
+    url(r'^connection$', 'tasksmanager.views.connection', name="public_connection"),
     url(r'^admin/', include(admin.site.urls)),
 )
