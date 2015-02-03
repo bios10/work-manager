@@ -10,5 +10,6 @@ urlpatterns = patterns('',
 
     url(r'^$', 'tasksmanager.views.index', name="public_index"),
     url(r'^connection$', 'tasksmanager.views.connection', name="public_connection"),
+    url(r'^project-detail-(?P<pk>\d+)$', 'tasksmanager.views.project_detail', name="project_detail"),
     url(r'^admin/', include(admin.site.urls)),
 )
