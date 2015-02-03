@@ -1,0 +1,16 @@
+{% extends "en/public/base.html" %}
+{% block title %}
+    Create Developer
+{% endblock %}
+{% block h1 %}
+    Create Developer
+{% endblock %}
+{% block article %}
+    <form method="post" action="{% url 'create_developer' %}">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <p><input type="submit" value="Create" /></p>
+    </form>
+{% endblock %}
