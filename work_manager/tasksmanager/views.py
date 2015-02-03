@@ -1,6 +1,7 @@
 from django import forms
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 from .models import Project, Supervisor, Developer
 
@@ -10,6 +11,11 @@ class form_inscription(forms.Form):
     login = forms.CharField(label="Login", max_length=30)
     password = forms.CharField(label="Password", widget=forms.PasswordInput)
     supervisor = forms.ModelChoiceField(label="Supervisor", queryset=Supervisor.objects.all())
+
+class form_supervisor(forms.ModelForm):
+    class Meta:
+        model = Supervisor
+        exclude = ('date_created', 'last_connexion', )
 
 def index(request):
     action = 'Display project with client name = "Me"'
@@ -38,5 +44,18 @@ def create_developer(request):
     else:
         form = form_inscription()
         return render(request, 'en/public/create_developer.html', {'form': form})
+
+def create_supervisor(request):
+    if len(request.POST) > 0:
+        form = form_supervisor(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return HttpResponseRedirect(reverse('public_index'))
+        else:
+            return render(request, 'en/public/create_supervisor.html', {'form': form})
+    else:
+        form = form_supervisor()
+        return render(request, 'en/public/create_supervisor.html', {'form': form})
+
 def connection(request):
     return render(request, 'en/public/connection.html')

@@ -1,0 +1,16 @@
+{% extends "en/public/base.html" %}
+{% block title %}
+    Create Supervisor
+{% endblock %}
+{% block h1 %}
+    Create Supervisor
+{% endblock %}
+{% block article %}
+    <form method="post" action="{% url 'create_supervisor' %}">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <p><input type="submit" value="Create" /></p>
+    </form>
+{% endblock %}
