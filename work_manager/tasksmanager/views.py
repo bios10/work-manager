@@ -3,12 +3,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-from .models import Project, Supervisor, Developer
+from .models import Project, Supervisor, Developer, error_name
 
-error_name = {
-    'required': 'You must type a name!',
-    'invalid': 'Wrong format.'
-}
+
 class form_inscription(forms.Form):
     name = forms.CharField(label="Name", max_length=30, error_messages=error_name)
     login = forms.CharField(label="Login", max_length=30)
@@ -30,15 +27,18 @@ class form_supervisor(forms.ModelForm):
         model = Supervisor
         exclude = ('date_created', 'last_connexion', )
 
+
 def index(request):
     action = 'Display project with client name = "Me"'
     projects_to_me = Project.objects.filter(client_name="Me")
     all_projects = Project.objects.all()
     return render(request, 'en/public/index.html', locals())
 
+
 def project_detail(request, pk):
     project = Project.objects.get(id=pk)
     return render(request, 'en/public/project_detail.html', {'project': project})
+
 
 def create_developer(request):
     if request.POST:
@@ -58,6 +58,7 @@ def create_developer(request):
         form = form_inscription()
         return render(request, 'en/public/create_developer.html', {'form': form})
 
+
 def create_supervisor(request):
     if len(request.POST) > 0:
         form = form_supervisor(request.POST)
@@ -69,6 +70,7 @@ def create_supervisor(request):
     else:
         form = form_supervisor()
         return render(request, 'en/public/create_supervisor.html', {'form': form})
+
 
 def connection(request):
     return render(request, 'en/public/connection.html')
