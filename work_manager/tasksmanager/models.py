@@ -1,7 +1,10 @@
 from django.db import models
 
+from .views import error_name
+
+
 class UserProfile(models.Model):
-    name = models.CharField(max_length=50, verbose_name="Name")
+    name = models.CharField(max_length=50, verbose_name="Name", error_messages=error_name)
     login = models.CharField(max_length=25, verbose_name="Login")
     password = models.CharField(max_length=100, verbose_name="Password")
     phone = models.CharField(max_length=20, verbose_name="Phone number", null=True, default=None, blank=True)
@@ -13,6 +16,7 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Project(models.Model):
     title = models.CharField(max_length=50, verbose_name="Title")

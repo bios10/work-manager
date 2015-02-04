@@ -5,12 +5,25 @@ from django.core.urlresolvers import reverse
 
 from .models import Project, Supervisor, Developer
 
-
+error_name = {
+    'required': 'You must type a name!',
+    'invalid': 'Wrong format.'
+}
 class form_inscription(forms.Form):
-    name = forms.CharField(label="Name", max_length=30)
+    name = forms.CharField(label="Name", max_length=30, error_messages=error_name)
     login = forms.CharField(label="Login", max_length=30)
     password = forms.CharField(label="Password", widget=forms.PasswordInput)
+    password_bis = forms.CharField(label="Password", widget=forms.PasswordInput)
     supervisor = forms.ModelChoiceField(label="Supervisor", queryset=Supervisor.objects.all())
+
+    def clean(self):
+        cleaned_data = super(form_inscription, self).clean()
+        password = self.cleaned_data.get('password')
+        password_bis = self.cleaned_data.get('password_bis')
+        if password and password_bis and password != password_bis:
+            raise forms.ValidationError("Passwords are not identical.")
+        return self.cleaned_data
+
 
 class form_supervisor(forms.ModelForm):
     class Meta:
